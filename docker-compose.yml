@@ -1,0 +1,65 @@
+version: "3"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./.docker/api/Dockerfile
+    container_name: laravel_app
+    image: api-backend-tasks-v01
+    volumes:
+      - ./api/:/var/www
+    ports:
+      - "8081:8080"
+    restart: unless-stopped
+    environment:
+      - APP_ENV=local
+      - APP_KEY=base64:OFFt9LUfICGigLqXzcx6xKP1iVY+e0U9Pm9NRyey+Go=
+      - APP_DEBUG=true
+      - APP_URL=http://localhost
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=laravel
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres123
+    depends_on:
+      - db
+    networks:
+      - tasks_network
+
+  db:
+    image: postgres:14
+    container_name: laravel_db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=laravel
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres123
+    volumes:
+      - ./.docker/postgresql/db-data:/var/lib/postgresql/data
+    networks:
+      - tasks_network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./.docker/frontend/Dockerfile
+      target: "develop-stage"
+    image: frontend-tasks-v01
+    ports:
+      - "9001:9000"
+    volumes:
+      - "./frontend/:/app"
+      - /app/node_modules
+    restart: unless-stopped
+    command: yarn dev
+    networks:
+      - tasks_network
+
+networks:
+  tasks_network:
+    driver: bridge
+volumes:
+  db-data:
+    driver: local
