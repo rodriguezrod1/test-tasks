@@ -1,27 +1,13 @@
-export interface Product {
-  id: number;
+export interface Task {
+  id?: number;
   name: string;
-  description: string;
-  quantity: number;
-  price: number;
+  status?: boolean;
+  created_at?: string;
+  updated_at?: string;
 }
 
-export interface ProductResponse extends Product {
-  data?: Product;
-  status: number;
-  message?: string;
-}
-
-export interface Movement extends Product {
-  id: number;
-  product_id: number;
-  type: string;
-  quantity: number;
-  product: Product;
-}
-
-export interface MovementResponse extends Movement {
-  data?: Movement;
+export interface TaskResponse extends Task {
+  tasks?: Task;
   status: number;
   message?: string;
 }

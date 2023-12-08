@@ -19,14 +19,11 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->group(['prefix' => 'products'], function () use ($router) {
-        $router->get('/', 'ProductController@index');
-        $router->post('/', 'ProductController@store');
-    });
-
-    $router->group(['prefix' => 'movements'], function () use ($router) {
-        $router->post('/', 'MovementsController@store');
-        $router->get('/', 'MovementsController@index');
+    $router->group(['prefix' => 'tasks'], function () use ($router) {
+        $router->get('/', 'TaskController@index');
+        $router->post('/', 'TaskController@store');
+        $router->put('/{id}', 'TaskController@update');
+        $router->delete('/{id}', 'TaskController@destroy');
     });
 });
 
