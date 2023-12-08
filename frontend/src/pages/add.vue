@@ -11,7 +11,7 @@ const router = useRouter()
 
 const register = async () => {
   taskStore.addTask({ name: name.value })
-  router.push('/');
+  router.push('/tasks');
 }
 
 const onSubmit = () => {
