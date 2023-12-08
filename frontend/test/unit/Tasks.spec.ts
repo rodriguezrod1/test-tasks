@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import Tasks from "../../src/pages/tasks.vue";
+import Tasks from "../../src/pages/index.vue";
 
 jest.mock("../src/stores/tasks", () => ({
   useTaskStore: jest.fn(),

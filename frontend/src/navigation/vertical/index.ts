@@ -3,7 +3,7 @@ import type { VerticalNavItems } from "@/@layouts/types";
 export default [
   {
     title: "List",
-    to: { name: "tasks" },
+    to: { name: "index" },
     icon: { icon: "tabler-list-check" },
   },
   {
